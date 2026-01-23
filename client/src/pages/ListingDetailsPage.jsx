@@ -154,7 +154,7 @@ export default function ListingDetailsPage() {
     <button
       className="btn btn-primary"
       onClick={async () => {
-        await API.post("/api/cart/add", { listingId: listing._id });
+        await API.post("/cart/add", { listingId: listing._id });
         alert("Added to Cart!");
       }}
     >
