@@ -21,45 +21,15 @@ const app = express();
 //   credentials: true
 // }));
 
-// Robust CORS: allow known origins and reflect origin for deployed frontends
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://apnacollegeolx-frontend.onrender.com",
-  // include a possible variant used during testing/deployments
-  "https://apnacollegeolx-frontend.onrenderer.com"
-];
-
+// Simple CORS: allow all origins (safe for public API), handle preflight
 app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps, curl, Postman)
-    if (!origin) return callback(null, true);
-    // if origin is in allowed list allow it, otherwise reflect origin (use carefully)
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      return callback(null, true);
-    }
-    // fallback: reflect the requesting origin so browser receives Access-Control-Allow-Origin
-    return callback(null, true);
-  },
-  credentials: true,
+  origin: "*",  // Allow all origins
+  credentials: false,  // Cannot use credentials with origin: "*"
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// Ensure preflight requests are handled
-app.options("*", cors({ credentials: true, origin: true }));
-
-// Explicit fallback: echo Origin and handle OPTIONS preflight (helps when proxies strip headers)
-app.use((req, res, next) => {
-  const origin = req.headers.origin || "*";
-  res.header("Access-Control-Allow-Origin", origin);
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", req.headers["access-control-request-headers"] || "Content-Type,Authorization");
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(204);
-  }
-  next();
-});
+app.options("*", cors());  // Handle preflight for all routes
 
 app.use(express.json());
 

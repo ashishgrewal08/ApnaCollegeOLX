@@ -2,8 +2,8 @@ import axios from "axios";
 
 
 const API = axios.create({
- baseURL: "https://apnacollegeolx-backend.onrender.com/api",
-  withCredentials: true
+  baseURL: "https://apnacollegeolx-backend.onrender.com/api",
+  withCredentials: false  // Changed to false since backend now uses origin: "*"
 });
 
 
