@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
   res.send("ApnaCollegeOLX API running");
 });
 
-/* ✅ ROUTES (NO DUPLICATES) */
+
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/listings", require("./routes/listingRoutes"));
 app.use("/api/upload", require("./routes/uploadRoutes"));
