@@ -54,14 +54,14 @@ app.get("/", (req, res) => {
 });
 
 /* ✅ ROUTES (NO DUPLICATES) */
-app.use("/auth", require("./routes/authRoutes"));
-app.use("/listings", require("./routes/listingRoutes"));
-app.use("/upload", require("./routes/uploadRoutes"));
-app.use("/cart", require("./routes/cartRoutes"));
-app.use("/orders", require("./routes/orderRoutes"));
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/listings", require("./routes/listingRoutes"));
+app.use("/api/upload", require("./routes/uploadRoutes"));
+app.use("/api/cart", require("./routes/cartRoutes"));
+app.use("/api/orders", require("./routes/orderRoutes"));
 
 /* ⚠️ Optional (local only) */
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api/uploads", express.static(path.join(__dirname, "uploads")));
 
 const PORT = process.env.PORT || 5000;
 
