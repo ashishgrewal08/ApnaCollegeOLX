@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const API = axios.create({
- baseURL: "https://apnacollegeolx-backend.onrender.com/api",
+ baseURL: "https://apnacollegeolx-backend.onrender.com",
   withCredentials: true
 });
 
