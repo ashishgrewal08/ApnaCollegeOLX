@@ -20,10 +20,10 @@ export default function CheckoutPage() {
         setErr("");
 
         if (type === "buynow" && listingId) {
-          const res = await API.get(`/api/listings/${listingId}`);
+          const res = await API.get(`/listings/${listingId}`);
           setItems([{ listing: res.data, quantity: 1 }]);
         } else if (type === "cart") {
-          const res = await API.get("/api/cart");
+          const res = await API.get("/cart");
           setItems(
             (res.data.items || []).map((item) => ({
               listing: item.listing,

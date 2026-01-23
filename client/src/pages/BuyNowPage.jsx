@@ -9,7 +9,7 @@ export default function BuyNowPage() {
 
   useEffect(() => {
     const load = async () => {
-      const res = await API.get(`/api/listings/${id}`);
+      const res = await API.get(`/listings/${id}`);
       setListing(res.data);
     };
     load();

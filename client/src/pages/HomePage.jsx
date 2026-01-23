@@ -8,7 +8,7 @@ export default function HomePage() {
   const [q, setQ] = useState("");
 
   const fetchListings = async () => {
-    const res = await API.get("/api/listings", {
+    const res = await API.get("/listings", {
       params: q ? { q } : {}
     });
     setListings(res.data);

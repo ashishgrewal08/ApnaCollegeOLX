@@ -22,7 +22,7 @@ export default function RegisterPage() {
     e.preventDefault();
     setErr("");
     try {
-      const res = await API.post("/api/auth/register", form);
+      const res = await API.post("/auth/register", form);
       login(res.data);
       navigate("/");
     } catch (error) {

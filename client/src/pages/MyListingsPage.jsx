@@ -11,7 +11,7 @@ export default function MyListingsPage() {
 
   useEffect(() => {
     const load = async () => {
-      const res = await API.get("/api/listings/my");
+      const res = await API.get("/listings/my");
       setListings(res.data);
     };
     if (user) load();

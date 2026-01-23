@@ -12,7 +12,7 @@ export default function CartPage() {
 
   const fetchCart = async () => {
     try {
-      const res = await API.get("/api/cart");
+      const res = await API.get("/cart");
       setCart(res.data);
     } catch (e) {
       setErr("Failed to load cart");
@@ -32,7 +32,7 @@ export default function CartPage() {
     ) || 0;
 
   const handleRemove = async (listingId) => {
-    await API.post("/api/cart/remove", { listingId });
+    await API.post("/cart/remove", { listingId });
     fetchCart();
   };
 

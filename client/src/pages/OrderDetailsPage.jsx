@@ -12,7 +12,7 @@ export default function OrderDetailsPage() {
     const load = async () => {
       try {
         setErr("");
-        const res = await API.get(`/api/orders/${id}`);
+        const res = await API.get(`/orders/${id}`);
         setOrder(res.data);
       } catch (e) {
         setErr(e.response?.data?.message || "Failed to load order details");

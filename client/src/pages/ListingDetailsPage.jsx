@@ -26,7 +26,7 @@ export default function ListingDetailsPage() {
   // Listing load
   useEffect(() => {
     const load = async () => {
-      const res = await API.get(`/api/listings/${id}`);
+      const res = await API.get(`/listings/${id}`);
       setListing(res.data);
     };
     load();
@@ -61,7 +61,7 @@ export default function ListingDetailsPage() {
     if (!ok) return;
 
     try {
-      await API.delete(`/api/listings/${id}`);
+      await API.delete(`/listings/${id}`);
       navigate("/my");
     } catch (error) {
       setErr(error.response?.data?.message || "Failed to delete listing");
@@ -86,7 +86,7 @@ export default function ListingDetailsPage() {
           : []
       };
 
-      const res = await API.put(`/api/listings/${id}`, payload);
+      const res = await API.put(`/listings/${id}`, payload);
       setListing(res.data);
       setIsEditing(false);
     } catch (error) {

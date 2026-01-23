@@ -60,7 +60,7 @@ export default function AddListingPage() {
       images: imageUrls
     };
 
-    await API.post("/api/listings", payload);
+    await API.post("/listings", payload);
     navigate("/");
   } catch (error) {
     setErr(error.response?.data?.message || "Failed to create listing");
