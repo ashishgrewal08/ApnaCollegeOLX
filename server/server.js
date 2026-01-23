@@ -12,24 +12,12 @@ connectDB();
 
 const app = express();
 
-/* ✅ CORS — YAHIN, ROUTES SE PEHLE */
-// app.use(cors({
-//   origin: [
-//     "http://localhost:5173",              // local frontend
-//     "https://apnacollegeolx.vercel.app"   // deployed frontend
-//   ],
-//   credentials: true
-// }));
-
-// Simple CORS: allow all origins (safe for public API), handle preflight
 app.use(cors({
-  origin: "*",  // Allow all origins
-  credentials: false,  // Cannot use credentials with origin: "*"
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  origin: 'https://apnacollegeolx-frontend.onrender.com', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  credentials: true 
 }));
-
-app.options("*", cors());  // Handle preflight for all routes
+  
 
 app.use(express.json());
 
