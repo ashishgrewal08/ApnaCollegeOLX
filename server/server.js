@@ -13,14 +13,40 @@ connectDB();
 const app = express();
 
 /* ✅ CORS — YAHIN, ROUTES SE PEHLE */
+// app.use(cors({
+//   origin: [
+//     "http://localhost:5173",              // local frontend
+//     "https://apnacollegeolx.vercel.app"   // deployed frontend
+//   ],
+//   credentials: true
+// }));
+
+// Robust CORS: allow known origins and reflect origin for deployed frontends
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://apnacollegeolx-frontend.onrender.com",
+  // include a possible variant used during testing/deployments
+  "https://apnacollegeolx-frontend.onrenderer.com"
+];
+
 app.use(cors({
-  origin: [
-    "http://localhost:5173",              // local frontend
-    "https://apnacollegeolx.vercel.app"   // deployed frontend
-  ],
-  credentials: true
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    // if origin is in allowed list allow it, otherwise reflect origin (use carefully)
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    }
+    // fallback: reflect the requesting origin so browser receives Access-Control-Allow-Origin
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
+// Ensure preflight requests are handled
+app.options("*", cors({ credentials: true, origin: true }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
