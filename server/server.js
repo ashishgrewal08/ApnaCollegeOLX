@@ -47,6 +47,20 @@ app.use(cors({
 
 // Ensure preflight requests are handled
 app.options("*", cors({ credentials: true, origin: true }));
+
+// Explicit fallback: echo Origin and handle OPTIONS preflight (helps when proxies strip headers)
+app.use((req, res, next) => {
+  const origin = req.headers.origin || "*";
+  res.header("Access-Control-Allow-Origin", origin);
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", req.headers["access-control-request-headers"] || "Content-Type,Authorization");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
